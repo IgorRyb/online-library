@@ -23,7 +23,7 @@ public class BookController {
     @GetMapping
     public String index(Model model) {
         checkRole(model);
-        model.addAttribute("books", bookService.index());
+        model.addAttribute("books", bookService.findAll());
         return "books/index";
     }
 
@@ -33,9 +33,9 @@ public class BookController {
 
         model.addAttribute("book", bookService.findById(id));
         if (model.containsAttribute("admin")) {
-            model.addAttribute("people", userService.findAll());
+            model.addAttribute("users", userService.findAll());
         }
-        return "books/id";
+        return "books/show";
     }
 
     @GetMapping("/new")
@@ -60,7 +60,7 @@ public class BookController {
     }
 
     @PatchMapping("/{id}")
-    public String updateBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult
+    public String updateBook(@ModelAttribute("book") Book book, BindingResult bindingResult
             , @PathVariable("id") long id) {
         if (bindingResult.hasErrors()) {
             return "book/edit";

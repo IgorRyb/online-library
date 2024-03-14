@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME PAGE</title>
+</head>
+<body>
+
+<form th:method="GET" th:action="@{/users}">
+  <input type="submit" value="К списку пользователей"/>
+</form>
+
+<br/>
+
+<form th:method="GET" th:action="@{/books}">
+  <input type="submit" value="Список всех книг"/>
+</form>
+
+</body>
+</html>

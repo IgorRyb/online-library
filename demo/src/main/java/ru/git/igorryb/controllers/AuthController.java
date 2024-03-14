@@ -1,7 +1,9 @@
 package ru.git.igorryb.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +29,12 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    public String register(@ModelAttribute("user") User user) {
+    public String register(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "auth/registration";
+        }
+
         registrationService.register(user);
         return "redirect:auth/login";
     }

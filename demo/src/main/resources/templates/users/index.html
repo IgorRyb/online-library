@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Список всех пользователей</title>
+</head>
+<body>
+
+<h1>Список пользователей</h1>
+
+<div th:each="user : ${users}">
+  <a th:href="@{/users/{id}(id=${user.getId()})}"
+     th:text="${user.getName() + ', ' + user.getUsername}">user</a>
+</div>
+
+<hr/>
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+<form th:method="GET" th:action="@{/users/new}">
+  <input type="submit" value="Создать нового пользователя"/>
+</form>
+</div>
+
+</body>
+</html>

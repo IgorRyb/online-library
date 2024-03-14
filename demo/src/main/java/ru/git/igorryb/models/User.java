@@ -11,13 +11,13 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user")
+@Table(name = "usr")
 @Entity
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "name", nullable = false)
     @Size(max = 50)
@@ -28,12 +28,11 @@ public class User {
     private String username;
 
     @Column(name = "password")
-    @Size(min = 5, max = 30)
     private String password;
 
     @Column(name = "role")
     private String role;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Book> reservedBooks;
 }

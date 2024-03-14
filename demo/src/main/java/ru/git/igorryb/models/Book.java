@@ -16,7 +16,7 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "name", nullable = false)
     @Size(max = 50)
@@ -27,7 +27,7 @@ public class Book {
     @Size(max = 50)
     private String author;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY) //
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User bookUser;
 

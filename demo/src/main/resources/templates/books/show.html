@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Добро пожаловать</title>
+</head>
+<body>
+<p th:text="${book.getName() + ', ' + book.getAuthor()}">VALUE</p>
+
+
+<div th:if="${user}">
+  <a sec:authorize="hasRole('ROLE_ADMIN')">
+  <form th:method="PATCH" th:action="@{/books/{id}/take(id=${book.getId()})}">
+    <label for="user">Выберите человека</label>
+    <select th:object="${user}" th:field="*{id}" id="user">
+      <option th:each="user : ${users}" th:value="${user.getId()}"
+              th:text="${user.getName()}"></option>
+    </select>
+    <input type="submit" value="Назначить"/>
+  </form>
+  </a>
+</div>
+
+<br/>
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+<form th:method="GET" th:action="@{/books/{id}/edit(id=${book.getId()})}">
+  <input type="submit" value="Редактировать книгу"/>
+</form>
+</div>
+
+<br/>
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+<form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
+  <input type="submit" value="Удалить книгу"/>
+</form>
+</div>
+</body>
+</html>
